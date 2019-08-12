@@ -325,8 +325,8 @@ const getTaskForm = () => `
 const getLoadButton = () => ` 
    <button class="load-more" type="button">load more</button>`;
 
-const render = (container, element) => {
-  container.insertAdjacentHTML(`beforeend`, element);
+const render = (container, markup) => {
+  container.insertAdjacentHTML(`beforeend`, markup);
 };
 
 const renderAll = () => {
@@ -335,15 +335,14 @@ const renderAll = () => {
   render(mainElement, getFilters());
   render(mainElement, getBoard());
 
-  const boardElement = mainElement.querySelector(`.board__tasks`);
+  const boardElement = mainElement.querySelector(`.board`);
+  const tasksElement = mainElement.querySelector(`.board__tasks`);
 
-  render(boardElement, getTaskForm());
-
+  render(tasksElement, getTaskForm());
   for (let i = 0; i < 3; i++) {
-    render(boardElement, getTaskCard());
+    render(tasksElement, getTaskCard());
   }
-
-  render(mainElement, getLoadButton());
+  render(boardElement, getLoadButton());
 };
 
 renderAll();
