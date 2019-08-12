@@ -2,6 +2,10 @@
 
 const mainElement = document.querySelector(`.main`);
 
+/**
+ * Returns Menu element markup
+ * @return {string} element markup
+ */
 const getMenu = () => `
   <section class="control__btn-wrap">
     <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">
@@ -12,12 +16,20 @@ const getMenu = () => `
     <label for="control__statistic" class="control__label">STATISTICS</label>
   </section>`;
 
+/**
+ * Returns Search element markup
+ * @return {string} element markup
+ */
 const getSearch = () => `
   <section class="main__search search container">
     <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
     <label class="visually-hidden" for="search__input">Search</label>
    </section>`;
 
+/**
+ * Returns Filters element markup
+ * @return {string} element markup
+ */
 const getFilters = () => `
   <section class="main__filter filter container">
     <input type="radio" id="filter__all" class="filter__input visually-hidden" name="filter" checked="">
@@ -37,6 +49,10 @@ const getFilters = () => `
     <label for="filter__archive" class="filter__label">Archive <span class="filter__archive-count">115</span></label>
    </section>`;
 
+/**
+ * Returns Board element markup
+ * @return {string} element markup
+ */
 const getBoard = () => `
   <section class="board container">
     <div class="board__filter-list">
@@ -48,6 +64,10 @@ const getBoard = () => `
     </div>
    </section>`;
 
+/**
+ * Returns Task card element markup
+ * @return {string} element markup
+ */
 const getTaskCard = () => `
   <article class="card card--blue">
     <div class="card__form">
@@ -109,6 +129,10 @@ const getTaskCard = () => `
     </div>
   </article>`;
 
+/**
+ * Returns Task form element markup
+ * @return {string} element markup
+ */
 const getTaskForm = () => `
   <article class="card card--edit card--black">
     <form class="card__form" method="get">
@@ -322,13 +346,25 @@ const getTaskForm = () => `
     </form>
   </article>`;
 
+/**
+ * Returns Load button element markup
+ * @return {string} element markup
+ */
 const getLoadButton = () => ` 
    <button class="load-more" type="button">load more</button>`;
 
+/**
+ * Renders markup inside the target container
+ * @param {Node} container
+ * @param {string} markup
+ */
 const render = (container, markup) => {
   container.insertAdjacentHTML(`beforeend`, markup);
 };
 
+/**
+ * Renders all page elements
+ */
 const renderAll = () => {
   render(mainElement.querySelector(`.main__control`), getMenu());
   render(mainElement, getSearch());
