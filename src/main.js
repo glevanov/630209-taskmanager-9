@@ -1,7 +1,6 @@
 'use strict';
 
-const Markup = {
-  MENU: `
+const getMenu = () => `
   <section class="control__btn-wrap">
     <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">
     <label for="control__new-task" class="control__label control__label--new-task">+ ADD NEW TASK</label>
@@ -9,13 +8,15 @@ const Markup = {
     <label for="control__task" class="control__label">TASKS</label>
     <input type="radio" name="control" id="control__statistic" class="control__input visually-hidden">
     <label for="control__statistic" class="control__label">STATISTICS</label>
-  </section>`,
-  SEARCH: `
+  </section>`;
+
+const getSearch = () => `
   <section class="main__search search container">
     <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
     <label class="visually-hidden" for="search__input">Search</label>
-   </section>`,
-  FILTERS: `
+   </section>`;
+
+const getFilters = () => `
   <section class="main__filter filter container">
     <input type="radio" id="filter__all" class="filter__input visually-hidden" name="filter" checked="">
     <label for="filter__all" class="filter__label">
@@ -32,8 +33,9 @@ const Markup = {
     <label for="filter__tags" class="filter__label">Tags <span class="filter__tags-count">0</span></label>
     <input type="radio" id="filter__archive" class="filter__input visually-hidden" name="filter">
     <label for="filter__archive" class="filter__label">Archive <span class="filter__archive-count">115</span></label>
-   </section>`,
-  BOARD: `
+   </section>`;
+
+const getBoard = () => `
   <section class="board container">
     <div class="board__filter-list">
       <a href="#" class="board__filter">SORT BY DEFAULT</a>
@@ -42,8 +44,9 @@ const Markup = {
     </div>
     <div class="board__tasks">
     </div>
-   </section>`,
-  TASK_CARD: `
+   </section>`;
+
+const getTaskCard = () => `
   <article class="card card--blue">
     <div class="card__form">
       <div class="card__inner">
@@ -102,8 +105,9 @@ const Markup = {
         </div>
       </div>
     </div>
-  </article>`,
-  TASK_FORM: `
+  </article>`;
+
+const getTaskForm = () => `
   <article class="card card--edit card--black">
     <form class="card__form" method="get">
       <div class="card__inner">
@@ -314,7 +318,7 @@ const Markup = {
         </div>
       </div>
     </form>
-  </article>`,
-  LOAD_BUTTON: ` 
-   <button class="load-more" type="button">load more</button>`,
-};
+  </article>`;
+
+const getLoadButton = () => ` 
+   <button class="load-more" type="button">load more</button>`;
