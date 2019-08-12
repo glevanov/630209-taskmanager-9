@@ -1,5 +1,7 @@
 'use strict';
 
+const mainElement = document.querySelector(`.main`);
+
 const getMenu = () => `
   <section class="control__btn-wrap">
     <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">
@@ -322,3 +324,26 @@ const getTaskForm = () => `
 
 const getLoadButton = () => ` 
    <button class="load-more" type="button">load more</button>`;
+
+const render = (container, element) => {
+  container.insertAdjacentHTML(`beforeend`, element);
+};
+
+const renderAll = () => {
+  render(mainElement.querySelector(`.main__control`), getMenu());
+  render(mainElement, getSearch());
+  render(mainElement, getFilters());
+  render(mainElement, getBoard());
+
+  const boardElement = mainElement.querySelector(`.board__tasks`);
+
+  render(boardElement, getTaskForm());
+
+  for (let i = 0; i < 3; i++) {
+    render(boardElement, getTaskCard());
+  }
+
+  render(mainElement, getLoadButton());
+};
+
+renderAll();
