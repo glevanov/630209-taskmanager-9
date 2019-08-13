@@ -1,7 +1,5 @@
 'use strict';
 
-const mainElement = document.querySelector(`.main`);
-
 /**
  * Returns Menu element markup
  * @return {string} element markup
@@ -27,33 +25,79 @@ const getSearch = () => `
    </section>`;
 
 /**
+ * Returns random integer
+ * @param {number} min Minimum integer
+ * @param {number} max Maximum integer
+ * @return {number}
+ */
+const randomInteger = (min, max) => {
+  let rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+};
+
+
+/**
  * Returns Filters element markup
  * @return {string} element markup
  */
-const getFilters = () => `
+const getFilters = () => {
+  const filtersData = [
+    {
+      label: `All`,
+      checked: true,
+      disabled: false,
+    },
+    {
+      label: `Overdue`,
+      checked: false,
+      disabled: true,
+    },
+    {
+      label: `Today`,
+      checked: false,
+      disabled: true,
+    },
+    {
+      label: `Favorites`,
+      checked: false,
+      disabled: true,
+    },
+    {
+      label: `Repeating`,
+      checked: false,
+      disabled: true,
+    },
+    {
+      label: `Tags`,
+      checked: false,
+      disabled: true,
+    },
+    {
+      label: `Archive`,
+      checked: false,
+      disabled: false,
+    },
+  ];
+
+  const filterElements = filtersData.map((item) => `
+  <input type="radio" id="filter__${item.label.toLocaleLowerCase()}" class="filter__input visually-hidden" name="filter" ${(item.checked) ? `checked` : ``} ${(item.disabled) ? `disabled` : ``}>
+    <label for="filter__${item.label.toLocaleLowerCase()}" class="filter__label">${item.label} <span class="filter__all-count">${randomInteger(0, 150)}</span></label>
+  `);
+
+  return `
   <section class="main__filter filter container">
-    <input type="radio" id="filter__all" class="filter__input visually-hidden" name="filter" checked="">
-    <label for="filter__all" class="filter__label">
-      All <span class="filter__all-count">1</span></label>
-    <input type="radio" id="filter__overdue" class="filter__input visually-hidden" name="filter" disabled="">
-    <label for="filter__overdue" class="filter__label">Overdue <span class="filter__overdue-count">0</span></label>
-    <input type="radio" id="filter__today" class="filter__input visually-hidden" name="filter" disabled="">
-    <label for="filter__today" class="filter__label">Today <span class="filter__today-count">0</span></label>
-    <input type="radio" id="filter__favorites" class="filter__input visually-hidden" name="filter" disabled="">
-    <label for="filter__favorites" class="filter__label">Favorites <span class="filter__favorites-count">0</span></label>
-    <input type="radio" id="filter__repeating" class="filter__input visually-hidden" name="filter" disabled="">
-    <label for="filter__repeating" class="filter__label">Repeating <span class="filter__repeating-count">0</span></label>
-    <input type="radio" id="filter__tags" class="filter__input visually-hidden" name="filter" disabled="">
-    <label for="filter__tags" class="filter__label">Tags <span class="filter__tags-count">0</span></label>
-    <input type="radio" id="filter__archive" class="filter__input visually-hidden" name="filter">
-    <label for="filter__archive" class="filter__label">Archive <span class="filter__archive-count">115</span></label>
-   </section>`;
+    ${filterElements.join(``)}
+  </section>`;
+};
 
 /**
  * Returns Board element markup
  * @return {string} element markup
  */
-const getBoard = () => `
+const getBoard = () => {
+  const taskCards = Array(3).fill(getTaskCard());
+
+  return `
   <section class="board container">
     <div class="board__filter-list">
       <a href="#" class="board__filter">SORT BY DEFAULT</a>
@@ -61,8 +105,12 @@ const getBoard = () => `
       <a href="#" class="board__filter">SORT BY DATE down</a>
     </div>
     <div class="board__tasks">
+      ${getTaskForm()}
+      ${taskCards.join(``)}
     </div>
+    <button class="load-more" type="button">load more</button>
    </section>`;
+};
 
 /**
  * Returns Task card element markup
@@ -130,10 +178,105 @@ const getTaskCard = () => `
   </article>`;
 
 /**
+ * Returns Repeat Days element markup
+ * @param {object} day object
+ * @return {string} element markup
+ */
+const getRepeatDays = (day) => `
+  <input
+    class="visually-hidden card__repeat-day-input"
+    type="checkbox"
+    id="repeat-${day.code}-1"
+    name="repeat"
+    value="${day.code}"
+    ${(day.checked) ? `checked` : ``}
+  />
+  <label class="card__repeat-day" for="repeat-${day.code}-1"
+    >${day.code}</label>`;
+
+/**
+ * Returns Color input element markup
+ * @param {object} color object
+ * @return {string} element markup
+ */
+const getColorInputs = (color) => `
+  <input
+    type="radio"
+    id="color-${color.color}-1"
+    class="card__color-input card__color-input--${color.color} visually-hidden"
+    name="color"
+    value="${color.color}"
+    ${(color.checked) ? `checked` : ``}
+  />
+  <label
+    for="color-${color.color}-1"
+    class="card__color card__color--${color.color}"
+    >${color.color}</label
+  >`;
+
+/**
  * Returns Task form element markup
  * @return {string} element markup
  */
-const getTaskForm = () => `
+const getTaskForm = () => {
+  const days = [
+    {
+      code: `mo`,
+      checked: false,
+    },
+    {
+      code: `tu`,
+      checked: true,
+    },
+    {
+      code: `we`,
+      checked: false,
+    },
+    {
+      code: `th`,
+      checked: false,
+    },
+    {
+      code: `fr`,
+      checked: true,
+    },
+    {
+      code: `sa`,
+      checked: false,
+    },
+    {
+      code: `su`,
+      checked: true,
+    },
+  ];
+
+  const colors = [
+    {
+      color: `black`,
+      checked: true,
+    },
+    {
+      color: `yellow`,
+      checked: false,
+    },
+    {
+      color: `blue`,
+      checked: false,
+    },
+    {
+      color: `green`,
+      checked: false,
+    },
+    {
+      color: `pink`,
+      checked: false,
+    },
+  ];
+
+  const dayInputs = days.map((day) => getRepeatDays(day));
+  const colorInputs = colors.map((color) => getColorInputs(color));
+
+  return `
   <article class="card card--edit card--black">
     <form class="card__form" method="get">
       <div class="card__inner">
@@ -183,79 +326,7 @@ const getTaskForm = () => `
               </button>
               <fieldset class="card__repeat-days" disabled>
                 <div class="card__repeat-days-inner">
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-mo-1"
-                    name="repeat"
-                    value="mo"
-                  />
-                  <label class="card__repeat-day" for="repeat-mo-1"
-                    >mo</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-tu-1"
-                    name="repeat"
-                    value="tu"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-tu-1"
-                    >tu</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-we-1"
-                    name="repeat"
-                    value="we"
-                  />
-                  <label class="card__repeat-day" for="repeat-we-1"
-                    >we</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-th-1"
-                    name="repeat"
-                    value="th"
-                  />
-                  <label class="card__repeat-day" for="repeat-th-1"
-                    >th</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-fr-1"
-                    name="repeat"
-                    value="fr"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-fr-1"
-                    >fr</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    name="repeat"
-                    value="sa"
-                    id="repeat-sa-1"
-                  />
-                  <label class="card__repeat-day" for="repeat-sa-1"
-                    >sa</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-su-1"
-                    name="repeat"
-                    value="su"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-su-1"
-                    >su</label
-                  >
+                  ${dayInputs.join(``)}
                 </div>
               </fieldset>
             </div>
@@ -274,67 +345,7 @@ const getTaskForm = () => `
           <div class="card__colors-inner">
             <h3 class="card__colors-title">Color</h3>
             <div class="card__colors-wrap">
-              <input
-                type="radio"
-                id="color-black-1"
-                class="card__color-input card__color-input--black visually-hidden"
-                name="color"
-                value="black"
-                checked
-              />
-              <label
-                for="color-black-1"
-                class="card__color card__color--black"
-                >black</label
-              >
-              <input
-                type="radio"
-                id="color-yellow-1"
-                class="card__color-input card__color-input--yellow visually-hidden"
-                name="color"
-                value="yellow"
-              />
-              <label
-                for="color-yellow-1"
-                class="card__color card__color--yellow"
-                >yellow</label
-              >
-              <input
-                type="radio"
-                id="color-blue-1"
-                class="card__color-input card__color-input--blue visually-hidden"
-                name="color"
-                value="blue"
-              />
-              <label
-                for="color-blue-1"
-                class="card__color card__color--blue"
-                >blue</label
-              >
-              <input
-                type="radio"
-                id="color-green-1"
-                class="card__color-input card__color-input--green visually-hidden"
-                name="color"
-                value="green"
-              />
-              <label
-                for="color-green-1"
-                class="card__color card__color--green"
-                >green</label
-              >
-              <input
-                type="radio"
-                id="color-pink-1"
-                class="card__color-input card__color-input--pink visually-hidden"
-                name="color"
-                value="pink"
-              />
-              <label
-                for="color-pink-1"
-                class="card__color card__color--pink"
-                >pink</label
-              >
+              ${colorInputs.join(``)}
             </div>
           </div>
         </div>
@@ -345,13 +356,7 @@ const getTaskForm = () => `
       </div>
     </form>
   </article>`;
-
-/**
- * Returns Load button element markup
- * @return {string} element markup
- */
-const getLoadButton = () => ` 
-   <button class="load-more" type="button">load more</button>`;
+};
 
 /**
  * Renders markup inside the target container
@@ -364,21 +369,17 @@ const render = (container, markup) => {
 
 /**
  * Renders all page elements
+ * @param {Node} mainElement Target for markup injection
  */
-const renderAll = () => {
+const renderAll = (mainElement) => {
   render(mainElement.querySelector(`.main__control`), getMenu());
-  render(mainElement, getSearch());
-  render(mainElement, getFilters());
-  render(mainElement, getBoard());
-
-  const boardElement = mainElement.querySelector(`.board`);
-  const tasksElement = mainElement.querySelector(`.board__tasks`);
-
-  render(tasksElement, getTaskForm());
-  for (let i = 0; i < 3; i++) {
-    render(tasksElement, getTaskCard());
-  }
-  render(boardElement, getLoadButton());
+  render(mainElement, `
+    ${getSearch()}
+    ${getFilters()}
+    ${getBoard()}
+  `);
 };
 
-renderAll();
+const mainElement = document.querySelector(`.main`);
+
+renderAll(mainElement);
