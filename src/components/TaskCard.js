@@ -12,7 +12,7 @@ export const getTaskCard = ({
   tags,
   color,
   isFavorite,
-  isArchive
+  isArchived
 }) => {
   const tagElements = Array.from(tags).slice(0, getRandomInteger(0, 3)).map((tag) => `
   <span class="card__hashtag-inner">
@@ -31,12 +31,12 @@ export const getTaskCard = ({
           <button type="button" class="card__btn card__btn--edit">
             edit
           </button>
-          <button type="button" class="card__btn card__btn--archive ${(isArchive) ? `card__btn--disabled` : ``}">
+          <button type="button" class="card__btn card__btn--archive ${(isArchived) ? `` : `card__btn--disabled`}">
             archive
           </button>
           <button
             type="button"
-            class="card__btn card__btn--favorites ${(isFavorite) ? `card__btn--disabled` : ``}"
+            class="card__btn card__btn--favorites ${(isFavorite) ? `` : `card__btn--disabled`}"
           >
             favorites
           </button>
@@ -54,7 +54,7 @@ export const getTaskCard = ({
             <div class="card__dates">
               <div class="card__date-deadline">
                 <p class="card__input-deadline-wrap">
-                  <span class="card__date">${parsedDate.getDate()} ${parsedDate.toLocaleString(`en-US`,{ month: 'long' })}</span>
+                  <span class="card__date">${parsedDate.getDate()} ${parsedDate.toLocaleString(`en-US`, {month: `long`})}</span>
                   <span class="card__time">${parsedDate.toLocaleString(`en-US`, {hour: `numeric`, minute: `numeric`, hour12: true})}</span>
                 </p>
               </div>

@@ -2,6 +2,7 @@ import {getMenu} from './components/Menu';
 import {getSearch} from './components/Search';
 import {getFilters} from './components/Filter';
 import {getBoard} from './components/Board';
+import {filters, tasks} from './data';
 
 /**
  * Renders markup inside the target container
@@ -20,8 +21,8 @@ const renderAll = (mainElement) => {
   render(mainElement.querySelector(`.main__control`), getMenu());
   render(mainElement, `
     ${getSearch()}
-    ${getFilters()}
-    ${getBoard()}
+    ${getFilters(filters)}
+    ${getBoard(tasks)}
   `);
 };
 

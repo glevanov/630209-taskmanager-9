@@ -1,12 +1,11 @@
 import {getTaskCard} from './TaskCard';
-import {getTaskForm} from './TaskForm';
-import {tasks} from '../data';
 
 /**
  * Returns Board element markup
+ * @param {array} tasks array
  * @return {string} element markup
  */
-export const getBoard = () => {
+export const getBoard = (tasks) => {
   const taskCards = tasks.map(getTaskCard);
 
   return `
@@ -17,7 +16,6 @@ export const getBoard = () => {
       <a href="#" class="board__filter">SORT BY DATE down</a>
     </div>
     <div class="board__tasks">
-      ${getTaskForm()}
       ${taskCards.join(``)}
     </div>
     <button class="load-more" type="button">load more</button>
