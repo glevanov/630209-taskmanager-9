@@ -1,13 +1,13 @@
 import {getTaskCard} from './TaskCard';
 import {getTaskForm} from './TaskForm';
-import {getTask} from '../data';
+import {tasks} from '../data';
 
 /**
  * Returns Board element markup
  * @return {string} element markup
  */
 export const getBoard = () => {
-  const taskCards = Array(3).fill(``).map(getTask).map(getTaskCard);
+  const taskCards = tasks.map(getTaskCard);
 
   return `
   <section class="board container">

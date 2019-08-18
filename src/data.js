@@ -1,4 +1,4 @@
-import {getRandomBoolean} from './mockHelpers';
+import {getRandomBoolean, getRandomInteger} from './mockHelpers';
 
 export const getTask = () => ({
   description: [
@@ -6,7 +6,7 @@ export const getTask = () => ({
     `Сделать домашку`,
     `Пройти интенсив на соточку`,
   ][Math.floor(Math.random() * 3)],
-  dueDate: Date.now() + 1 + Math.floor(Math.random() * (getRandomBoolean()) ? 7 : -7),
+  dueDate: Date.now() + 1 + Math.floor(Math.random() * ((getRandomBoolean()) ? 7 : -7)) * 24 * 60 * 60 * 1000,
   repeatingDays: {
     'Mo': getRandomBoolean(),
     'Tu': getRandomBoolean(),
@@ -33,3 +33,5 @@ export const getTask = () => ({
   isFavorite: getRandomBoolean(),
   isArchive: getRandomBoolean(),
 });
+
+export const tasks = Array(getRandomInteger(1, 8)).fill(``).map(getTask);
