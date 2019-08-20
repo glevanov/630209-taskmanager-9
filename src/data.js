@@ -34,7 +34,7 @@ export const getTask = () => ({
   isArchived: getRandomBoolean(),
 });
 
-export const tasks = Array(8).fill(``).map(getTask);
+export const tasks = Array(getRandomInteger(4, 13)).fill(``).map(getTask);
 
 export const filters = [
   {
