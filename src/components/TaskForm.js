@@ -3,77 +3,53 @@ import {getColorInputs} from './ColorInputs';
 
 /**
  * Returns Task form element markup
+ * @param {object} task object
  * @return {string} element markup
  */
-export const getTaskForm = () => {
-  const days = [
-    {
-      code: `mo`,
-      checked: false,
-    },
-    {
-      code: `tu`,
-      checked: true,
-    },
-    {
-      code: `we`,
-      checked: false,
-    },
-    {
-      code: `th`,
-      checked: false,
-    },
-    {
-      code: `fr`,
-      checked: true,
-    },
-    {
-      code: `sa`,
-      checked: false,
-    },
-    {
-      code: `su`,
-      checked: true,
-    },
-  ];
+export const getTaskForm = ({
+  description,
+  dueDate,
+  repeatingDays,
+  tags,
+  color,
+  isFavorite,
+  isArchived
+}) => {
+  const days = new Set([
+    `Mo`,
+    `Tu`,
+    `We`,
+    `Th`,
+    `Fr`,
+    `Sa`,
+    `Su`,
+  ]);
 
-  const colors = [
-    {
-      color: `black`,
-      checked: true,
-    },
-    {
-      color: `yellow`,
-      checked: false,
-    },
-    {
-      color: `blue`,
-      checked: false,
-    },
-    {
-      color: `green`,
-      checked: false,
-    },
-    {
-      color: `pink`,
-      checked: false,
-    },
-  ];
+  const inputColors = new Set([
+    `black`,
+    `yellow`,
+    `blue`,
+    `green`,
+    `pink`,
+  ]);
+  const parsedDate = new Date(dueDate);
+  const formattedDate = `${parsedDate.getDate()} ${parsedDate.toLocaleString(`en-US`, {month: `long`})}`;
+  const isRepeating = Object.values(repeatingDays).includes(true);
 
-  const dayInputs = days.map((day) => getRepeatDays(day));
-  const colorInputs = colors.map((color) => getColorInputs(color));
+  const dayInputs = Array.from(days).map((item) => getRepeatDays(item, repeatingDays));
+  const colorInputs = Array.from(inputColors).map((item) => getColorInputs(item, color));
 
   return `
-  <article class="card card--edit card--black">
+  <article class="card card--edit card--${color}">
     <form class="card__form" method="get">
       <div class="card__inner">
         <div class="card__control">
-          <button type="button" class="card__btn card__btn--archive">
+          <button type="button" class="card__btn card__btn--archive ${(isArchived) ? `` : `card__btn--disabled`}">
             archive
           </button>
           <button
             type="button"
-            class="card__btn card__btn--favorites card__btn--disabled"
+            class="card__btn card__btn--favorites ${(isFavorite) ? `` : `card__btn--disabled`}"
           >
             favorites
           </button>
@@ -89,29 +65,30 @@ export const getTaskForm = () => {
               class="card__text"
               placeholder="Start typing your text here..."
               name="text"
-            >This is example of new task, you can add picture, set date and time, add tags.</textarea>
+            >${description}</textarea>
           </label>
         </div>
         <div class="card__settings">
           <div class="card__details">
             <div class="card__dates">
               <button class="card__date-deadline-toggle" type="button">
-                date: <span class="card__date-status">no</span>
+                date: <span class="card__date-status">${(parsedDate) ? `` : `no`}</span>
               </button>
-              <fieldset class="card__date-deadline" disabled>
+              <fieldset class="card__date-deadline" ${(parsedDate) ? `` : `disabled`}>
                 <label class="card__input-deadline-wrap">
                   <input
                     class="card__date"
                     type="text"
                     placeholder="23 September"
                     name="date"
+                    value="${formattedDate}"
                   />
                 </label>
               </fieldset>
               <button class="card__repeat-toggle" type="button">
-                repeat:<span class="card__repeat-status">no</span>
+                repeat:<span class="card__repeat-status">${(isRepeating) ? `` : `no`}</span>
               </button>
-              <fieldset class="card__repeat-days" disabled>
+              <fieldset class="card__repeat-days" ${(isRepeating) ? `` : `disabled`}>
                 <div class="card__repeat-days-inner">
                   ${dayInputs.join(``)}
                 </div>
@@ -125,6 +102,7 @@ export const getTaskForm = () => {
                   class="card__hashtag-input"
                   name="hashtag-input"
                   placeholder="Type new hashtag here"
+                  value="${(tags) ? `#${Array.from(tags).join(` #`)}` : ``}"
                 />
               </label>
             </div>

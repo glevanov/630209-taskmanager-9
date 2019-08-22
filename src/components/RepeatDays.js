@@ -1,16 +1,21 @@
 /**
  * Returns Repeat Days element markup
- * @param {object} day object
+ * @param {string} day object
+ * @param {object} repeatingDays object
  * @return {string} element markup
  */
-export const getRepeatDays = (day) => `
+export const getRepeatDays = (day, repeatingDays) => {
+  const formattedDay = day.toLowerCase();
+
+  return `
   <input
     class="visually-hidden card__repeat-day-input"
     type="checkbox"
-    id="repeat-${day.code}-1"
+    id="repeat-${formattedDay}-1"
     name="repeat"
-    value="${day.code}"
-    ${(day.checked) ? `checked` : ``}
+    value="${formattedDay}"
+    ${(repeatingDays[day]) ? `checked` : ``}
   />
-  <label class="card__repeat-day" for="repeat-${day.code}-1"
-    >${day.code}</label>`;
+  <label class="card__repeat-day" for="repeat-${formattedDay}-1"
+    >${formattedDay}</label>`;
+};
