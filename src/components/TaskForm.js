@@ -1,5 +1,5 @@
-import {getRepeatDays} from './RepeatDays';
-import {getColorInputs} from './ColorInputs';
+import RepeatDays from './RepeatDays';
+import ColorInputs from './ColorInputs';
 
 /**
  * Returns Task form element markup

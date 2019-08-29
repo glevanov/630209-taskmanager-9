@@ -1,9 +1,34 @@
+import {createElement} from '../util';
+
 /**
- * Returns Search element markup
- * @return {string} element markup
+ * Search component
+ * @class
  */
-export const getSearch = () => `
-  <section class="main__search search container">
-    <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
-    <label class="visually-hidden" for="search__input">Search</label>
-   </section>`;
+export default class Search {
+  constructor() {
+    this._element = null;
+  }
+
+  /**
+   * Returns component node
+   * @return {Node}
+   */
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  /**
+   * Returns component markup
+   * @return {string}
+   */
+  getTemplate() {
+    return `
+    <section class="main__search search container">
+      <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
+      <label class="visually-hidden" for="search__input">Search</label>
+    </section>`;
+  }
+}

@@ -1,21 +1,59 @@
-/**
- * Returns Repeat Days element markup
- * @param {string} day object
- * @param {object} repeatingDays object
- * @return {string} element markup
- */
-export const getRepeatDays = (day, repeatingDays) => {
-  const formattedDay = day.toLowerCase();
+import {createElement} from '../util';
 
-  return `
-  <input
-    class="visually-hidden card__repeat-day-input"
-    type="checkbox"
-    id="repeat-${formattedDay}-1"
-    name="repeat"
-    value="${formattedDay}"
-    ${(repeatingDays[day]) ? `checked` : ``}
-  />
-  <label class="card__repeat-day" for="repeat-${formattedDay}-1"
-    >${formattedDay}</label>`;
-};
+/**
+ * Repeat Days component
+ * @class
+ */
+export default class RepeatDays {
+  /**
+   * @param {object} props
+   * @param {string} props.day Day name
+   * @param {object} props.repeatingDays Repeating days data
+   */
+  constructor({
+    day,
+    repeatingDays,
+  }) {
+    this._element = null;
+    this._day = day;
+    this._repeatingDays = repeatingDays;
+  }
+
+  /**
+   * Returns formatted day
+   * @return {string}
+   */
+  get _formattedDay() {
+    return this._day.toLowerCase();
+  }
+
+  /**
+   * Returns component node
+   * @return {Node}
+   */
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  /**
+   * Returns component markup
+   * @return {string}
+   */
+  getTemplate() {
+    return `
+    <input
+      class="visually-hidden card__repeat-day-input"
+      type="checkbox"
+      id="repeat-${this._formattedDay}-1"
+      name="repeat"
+      value="${this._formattedDay}"
+      ${(this._repeatingDays[this._day]) ? `checked` : ``}
+    />
+    <label class="card__repeat-day" for="repeat-${this._formattedDay}-1">
+      ${this._formattedDay}
+    </label>`;
+  }
+}
