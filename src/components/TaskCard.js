@@ -8,13 +8,13 @@ import {createElement} from '../util';
 export default class Search {
   /**
    * @param {object} props
-   * @param {string} props.description Color name
-   * @param {number} props.dueDate Checked color name
-   * @param {object} props.repeatingDays Checked color name
-   * @param {Set} props.tags Checked color name
-   * @param {string} props.color Checked color name
-   * @param {boolean} props.isFavorite Checked color name
-   * @param {boolean} props.isArchived Checked color name
+   * @param {string} props.description Task description
+   * @param {number} props.dueDate Task due date
+   * @param {object} props.repeatingDays Task repeat days
+   * @param {Set} props.tags Task tags
+   * @param {string} props.color Task color
+   * @param {boolean} props.isFavorite Task favorite flag
+   * @param {boolean} props.isArchived Task archived flag
    */
   constructor({
     description,
@@ -35,6 +35,10 @@ export default class Search {
     this._isArchived = isArchived;
   }
 
+  /**
+   * Returns date as Date object
+   * @return {object}
+   */
   get _parsedDate() {
     return new Date(this._dueDate);
   }
@@ -58,6 +62,11 @@ export default class Search {
       this._element = createElement(this.getTemplate());
     }
     return this._element;
+  }
+
+  /** Removes link to element */
+  removeElement() {
+    this._element = null;
   }
 
   /**

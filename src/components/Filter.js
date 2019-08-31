@@ -7,7 +7,7 @@ import {createElement} from '../util';
 export default class Filter {
   /**
    * @param {object} props
-   * @param {object} props.filters Filters data
+   * @param {array} props.filters Filters data
    */
   constructor({filters}) {
     this._filters = filters;
@@ -23,6 +23,11 @@ export default class Filter {
       this._element = createElement(this.getTemplate());
     }
     return this._element;
+  }
+
+  /** Removes link to element */
+  removeElement() {
+    this._element = null;
   }
 
   /**

@@ -20,6 +20,11 @@ export default class Menu {
     return this._element;
   }
 
+  /** Removes link to element */
+  removeElement() {
+    this._element = null;
+  }
+
   /**
    * Returns component markup
    * @return {string}
