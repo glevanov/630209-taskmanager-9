@@ -1,24 +1,31 @@
-import {getMenu} from './components/Menu';
-import {getSearch} from './components/Search';
-import {getFilters} from './components/Filter';
-import {getBoard, addLoadMoreEventListener} from './components/Board';
+import {render, Position} from './util';
+import Board from './components/Board';
+import Filter from './components/Filter';
+import Menu from './components/Menu';
+import Search from './components/Search';
+import SortControls from './components/SortControls';
+import TaskCard from './components/TaskCard';
+import TaskForm from './components/TaskForm';
 import {filters, tasks} from './data';
-import render from './render';
 
 /**
  * Renders all page elements
  * @param {Node} mainElement Target for markup injection
  */
-const renderAll = (mainElement) => {
-  render(mainElement.querySelector(`.main__control`), getMenu());
-  render(mainElement, `
-    ${getSearch()}
-    ${getFilters(filters)}
-    ${getBoard(tasks)}
-  `);
-  addLoadMoreEventListener();
+const renderScaffolding = (mainElement) => {
+  render(mainElement.querySelector(`.main__control`), menu.getElement());
+  render(mainElement, search.getElement());
+  render(mainElement, filter.getElement());
+  render(mainElement, board.getElement());
+  render(mainElement.querySelector(`.board`), sortControls.getElement(), Position.AFTERBEGIN);
 };
 
 const mainElement = document.querySelector(`.main`);
 
-renderAll(mainElement);
+const menu = new Menu();
+const search = new Search();
+const filter = new Filter({filters});
+const board = new Board();
+const sortControls = new SortControls();
+
+renderScaffolding(mainElement);

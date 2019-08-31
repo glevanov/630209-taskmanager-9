@@ -3,7 +3,7 @@
  * @readonly
  * @enum {string}
  */
-const Position = {
+export const Position = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
 };
@@ -15,8 +15,18 @@ const Position = {
  */
 export const createElement = (template) => {
   const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
+  newElement.innerHTML = template.trim();
   return newElement.firstChild;
+};
+
+/**
+ * Removes element from DOM
+ * @param {Node} element
+ */
+export const removeElement = (element) => {
+  if (element) {
+    element.remove();
+  }
 };
 
 /**
@@ -25,7 +35,7 @@ export const createElement = (template) => {
  * @param {Node} element
  * @param {string} place
  */
-export const render = (container, element, place) => {
+export const render = (container, element, place = Position.BEFOREEND) => {
   switch (place) {
     case Position.AFTERBEGIN:
       container.prepend(element);
