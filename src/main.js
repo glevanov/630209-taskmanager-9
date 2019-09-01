@@ -28,6 +28,10 @@ const renderScaffolding = (mainElement) => {
   render(mainElement.querySelector(`.board`), sortControls.getElement(), Position.AFTERBEGIN);
 };
 
+/**
+ * Renders a task
+ * @param {object} taskMock Task data
+ */
 const renderTask = (taskMock) => {
   const task = new TaskCard(taskMock);
   const taskEdit = new TaskForm(taskMock);
