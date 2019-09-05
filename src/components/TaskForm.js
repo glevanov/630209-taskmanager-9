@@ -65,7 +65,7 @@ export default class TaskForm {
    * Returns formatted date
    * @return {string}
    */
-  get formattedDate() {
+  get _formattedDate() {
     return `${this._parsedDate.getDate()} ${this._parsedDate.toLocaleString(`en-US`, {month: `long`})}`;
   }
 
