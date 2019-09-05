@@ -104,9 +104,8 @@ export default class TaskForm {
    * @return {array}
    */
   _getColorInputsMarkup() {
-    const color = this._color;
     return Array.from(this._inputColors)
-      .map((item) => this._getColorInput({item, color}));
+      .map((item) => this._getColorInput({color: item}));
   }
 
   /**
