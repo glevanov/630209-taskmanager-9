@@ -22,12 +22,9 @@ export const createElement = (template) => {
 /**
  * Removes element from DOM
  * @param {Node} element
+ * @return {boolean}
  */
-export const removeElement = (element) => {
-  if (element) {
-    element.remove();
-  }
-};
+export const removeElement = (element) => (element) && element.remove;
 
 /**
  * Renders element inside the target container
@@ -43,15 +40,5 @@ export const render = (container, element, place = Position.BEFOREEND) => {
     case Position.BEFOREEND:
       container.append(element);
       break;
-  }
-};
-
-/**
- * Unrenders element
- * @param {Node} element
- */
-export const unrender = (element) => {
-  if (element) {
-    element.remove();
   }
 };

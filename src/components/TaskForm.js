@@ -119,12 +119,12 @@ export default class TaskForm {
     <form class="card__form" method="get">
       <div class="card__inner">
         <div class="card__control">
-          <button type="button" class="card__btn card__btn--archive ${(this._isArchived) ? `` : `card__btn--disabled`}">
+          <button type="button" class="card__btn card__btn--archive ${(!this._isArchived) ? `card__btn--disabled` : ``}">
             archive
           </button>
           <button
             type="button"
-            class="card__btn card__btn--favorites ${(this._isFavorite) ? `` : `card__btn--disabled`}"
+            class="card__btn card__btn--favorites ${(!this._isFavorite) ? `card__btn--disabled` : ``}"
           >
             favorites
           </button>
@@ -147,9 +147,9 @@ export default class TaskForm {
           <div class="card__details">
             <div class="card__dates">
               <button class="card__date-deadline-toggle" type="button">
-                date: <span class="card__date-status">${(this._parsedDate) ? `` : `no`}</span>
+                date: <span class="card__date-status">${(!this._parsedDate) ? `no` : ``}</span>
               </button>
-              <fieldset class="card__date-deadline" ${(this._parsedDate) ? `` : `disabled`}>
+              <fieldset class="card__date-deadline" ${(!this._parsedDate) ? `disabled` : ``}>
                 <label class="card__input-deadline-wrap">
                   <input
                     class="card__date"
@@ -161,9 +161,9 @@ export default class TaskForm {
                 </label>
               </fieldset>
               <button class="card__repeat-toggle" type="button">
-                repeat:<span class="card__repeat-status">${(this._isRepeating) ? `` : `no`}</span>
+                repeat:<span class="card__repeat-status">${(!this._isRepeating) ? `no` : ``}</span>
               </button>
-              <fieldset class="card__repeat-days" ${(this._isRepeating) ? `` : `disabled`}>
+              <fieldset class="card__repeat-days" ${(!this._isRepeating) ? `disabled` : ``}>
                 <div class="card__repeat-days-inner">
                   ${this._getRepeatDaysMarkup().join(``)}
                 </div>

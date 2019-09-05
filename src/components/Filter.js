@@ -7,10 +7,9 @@ import {createElement} from '../util';
 export default class Filter {
   /**
    * @param {object} props
-   * @param {array} props.filters Filters data
    */
-  constructor({filters}) {
-    this._filters = filters;
+  constructor(props) {
+    this._filters = props.filters;
     this._element = null;
   }
 

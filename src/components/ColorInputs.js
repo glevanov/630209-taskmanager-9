@@ -7,16 +7,11 @@ import {createElement} from '../util';
 export default class RepeatDays {
   /**
    * @param {object} props
-   * @param {string} props.color Color name
-   * @param {object} props.checkedColor Checked color name
    */
-  constructor({
-    color,
-    checkedColor,
-  }) {
+  constructor(props) {
     this._element = null;
-    this._color = color;
-    this._checkedColor = checkedColor;
+    this._color = props.color;
+    this._checkedColor = props.checkedColor;
   }
 
   /**

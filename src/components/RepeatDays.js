@@ -7,16 +7,11 @@ import {createElement} from '../util';
 export default class RepeatDays {
   /**
    * @param {object} props
-   * @param {string} props.day Day name
-   * @param {object} props.repeatingDays Repeating days data
    */
-  constructor({
-    day,
-    repeatingDays,
-  }) {
+  constructor(props) {
     this._element = null;
-    this._day = day;
-    this._repeatingDays = repeatingDays;
+    this._day = props.day;
+    this._repeatingDays = props.repeatingDays;
   }
 
   /**

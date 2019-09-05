@@ -8,31 +8,16 @@ import {createElement} from '../util';
 export default class Search {
   /**
    * @param {object} props
-   * @param {string} props.description Task description
-   * @param {number} props.dueDate Task due date
-   * @param {object} props.repeatingDays Task repeat days
-   * @param {Set} props.tags Task tags
-   * @param {string} props.color Task color
-   * @param {boolean} props.isFavorite Task favorite flag
-   * @param {boolean} props.isArchived Task archived flag
    */
-  constructor({
-    description,
-    dueDate,
-    repeatingDays,
-    tags,
-    color,
-    isFavorite,
-    isArchived
-  }) {
+  constructor(props) {
     this._element = null;
-    this._description = description;
-    this._dueDate = dueDate;
-    this._repeatingDays = repeatingDays;
-    this._tags = tags;
-    this._color = color;
-    this._isFavorite = isFavorite;
-    this._isArchived = isArchived;
+    this._description = props.description;
+    this._dueDate = props.dueDate;
+    this._repeatingDays = props.repeatingDays;
+    this._tags = props.tags;
+    this._color = props.color;
+    this._isFavorite = props.isFavorite;
+    this._isArchived = props.isArchived;
   }
 
   /**
@@ -82,12 +67,12 @@ export default class Search {
           <button type="button" class="card__btn card__btn--edit">
             edit
           </button>
-          <button type="button" class="card__btn card__btn--archive ${(this._isArchived) ? `` : `card__btn--disabled`}">
+          <button type="button" class="card__btn card__btn--archive ${(!this._isArchived) ? `card__btn--disabled` : ``}">
             archive
           </button>
           <button
             type="button"
-            class="card__btn card__btn--favorites ${(this._isFavorite) ? `` : `card__btn--disabled`}"
+            class="card__btn card__btn--favorites ${(!this._isFavorite) ? `card__btn--disabled` : ``}"
           >
             favorites
           </button>
