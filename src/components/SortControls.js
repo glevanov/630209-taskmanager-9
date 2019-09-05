@@ -1,10 +1,10 @@
 import {createElement} from '../util';
 
 /**
- * Search component
+ * Sort Controls component
  * @class
  */
-export default class Search {
+export default class SortControls {
   constructor() {
     this._element = null;
   }
@@ -31,10 +31,10 @@ export default class Search {
    */
   getTemplate() {
     return `
-    <section class="main__search search container">
-      <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
-      <label class="visually-hidden" for="search__input">Search</label>
-    </section>`
-      .trim();
+    <div class="board__filter-list">
+      <a href="#" class="board__filter">SORT BY DEFAULT</a>
+      <a href="#" class="board__filter">SORT BY DATE up</a>
+      <a href="#" class="board__filter">SORT BY DATE down</a>
+    </div>`;
   }
 }

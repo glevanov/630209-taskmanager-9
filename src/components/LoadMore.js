@@ -1,10 +1,10 @@
 import {createElement} from '../util';
 
 /**
- * Search component
+ * Load More button component
  * @class
  */
-export default class Search {
+export default class LoadMore {
   constructor() {
     this._element = null;
   }
@@ -31,10 +31,8 @@ export default class Search {
    */
   getTemplate() {
     return `
-    <section class="main__search search container">
-      <input type="text" id="search__input" class="search__input" placeholder="START TYPING — SEARCH BY WORD, #HASHTAG OR DATE">
-      <label class="visually-hidden" for="search__input">Search</label>
-    </section>`
-      .trim();
+    <button class="load-more" type="button">
+      load more
+    </button>`;
   }
 }
