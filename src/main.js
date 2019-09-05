@@ -35,7 +35,6 @@ const renderScaffolding = (mainElement) => {
 const renderTask = (taskMock) => {
   const task = new TaskCard(taskMock);
   const taskEdit = new TaskForm(taskMock);
-
   const handleEscKeyDown = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       tasksBoard.replaceChild(task.getElement(), taskEdit.getElement());
