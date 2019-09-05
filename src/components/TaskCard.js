@@ -2,6 +2,12 @@ import {getRandomInteger} from '../mockHelpers';
 import {createElement} from '../util';
 
 /**
+ * Max number of mock tags
+ * @const {number}
+ */
+const MAX_MOCK_TAGS = 3;
+
+/**
  * Task card component
  * @class
  */
@@ -29,7 +35,7 @@ export default class Search {
   }
 
   _getTagElements(tags) {
-    return Array.from(tags).slice(0, getRandomInteger(0, 3)).map((tag) => `
+    return Array.from(tags).slice(0, getRandomInteger(0, MAX_MOCK_TAGS)).map((tag) => `
     <span class="card__hashtag-inner">
       <span class="card__hashtag-name">
         #${tag}
