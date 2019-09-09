@@ -5,7 +5,7 @@
  */
 export const Position = {
   AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
+  BEFOREEND: `beforeend`,
 };
 
 /**
@@ -24,7 +24,7 @@ export const createElement = (template) => {
  * @param {Node} element
  * @return {boolean}
  */
-export const removeElement = (element) => (element) && element.remove;
+export const removeElement = (element) => (element) && element.remove();
 
 /**
  * Renders element inside the target container

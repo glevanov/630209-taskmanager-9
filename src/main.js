@@ -1,4 +1,4 @@
-import {render, Position} from './util';
+import {render, removeElement, Position} from './util';
 import Board from './components/Board';
 import LoadMore from './components/LoadMore';
 import Filter from './components/Filter';
@@ -39,14 +39,18 @@ const renderTask = (taskMock) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       tasksBoard.replaceChild(task.getElement(), taskEdit.getElement());
       document.removeEventListener(`keydown`, handleEscKeyDown);
+      hasTaskFormOpen = false;
     }
   };
 
   task.getElement()
     .querySelector(`.card__btn--edit`)
     .addEventListener(`click`, () => {
-      tasksBoard.replaceChild(taskEdit.getElement(), task.getElement());
-      document.addEventListener(`keydown`, handleEscKeyDown);
+      if (!hasTaskFormOpen) {
+        tasksBoard.replaceChild(taskEdit.getElement(), task.getElement());
+        document.addEventListener(`keydown`, handleEscKeyDown);
+      }
+      hasTaskFormOpen = true;
     });
 
   taskEdit.getElement().querySelector(`textarea`)
@@ -64,6 +68,7 @@ const renderTask = (taskMock) => {
     .addEventListener(`click`, () => {
       tasksBoard.replaceChild(task.getElement(), taskEdit.getElement());
       document.removeEventListener(`keydown`, handleEscKeyDown);
+      hasTaskFormOpen = false;
     });
 
   render(tasksBoard, task.getElement());
@@ -73,10 +78,8 @@ const renderTask = (taskMock) => {
  * Removes load more button & handler
  */
 const removeLoadMore = () => {
-  const loadMore = mainElement.querySelector(`.load-more`);
-
-  loadMore.removeEventListener(`click`, handleLoadMoreClick);
-  mainElement.querySelector(`.board`).removeChild(loadMore);
+  loadMore.getElement().removeEventListener(`click`, handleLoadMoreClick);
+  removeElement(loadMore.getElement());
 };
 
 /**
@@ -103,9 +106,8 @@ const handleLoadMoreClick = () => {
  * Adds Load more button event handlers
  */
 export const addLoadMoreEventListener = () => {
-  const loadMore = document.querySelector(`.load-more`);
-  if (loadMore) {
-    loadMore.addEventListener(`click`, handleLoadMoreClick);
+  if (loadMore.getElement()) {
+    loadMore.getElement().addEventListener(`click`, handleLoadMoreClick);
   }
 };
 
@@ -123,6 +125,12 @@ const sortControls = new SortControls();
  * @type {number}
  */
 let taskIndexCounter = 0;
+
+/**
+ * TaskForm state flag
+ * @type {boolean}
+ */
+let hasTaskFormOpen = false;
 
 renderScaffolding(mainElement);
 const tasksBoard = mainElement.querySelector(`.board__tasks`);
